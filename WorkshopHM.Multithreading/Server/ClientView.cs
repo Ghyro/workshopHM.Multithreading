@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -15,7 +16,8 @@ namespace Server
         private string username;
         private TcpClient client;
         private ServerView server;
-        public List<string> storeMessages = new List<string>();
+        // File path (you can change it)
+        private string filePath = @"C:\Users\Kirill\Desktop\workshopHM.Multithreading-master\WorkshopHM.Multithreading\Server\messages.txt";
 
         public ClientView(TcpClient tcpClient, ServerView serverView)
         {
@@ -35,7 +37,26 @@ namespace Server
                 username = message;
                 message = username + " is online.";
 
-                // Send to all users the user is online
+
+                // Broadcast all last messages for new User
+                try
+                {
+                    using (StreamReader sr = new StreamReader(filePath, Encoding.Default))
+                    {
+                        string text;
+                        while ((text = sr.ReadLine()) != null)
+                        {
+                            text = string.Concat(text, '\n');
+
+                            server.BroadcastForNewUser(text, this.Id);
+                        }
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Server: File is empty.");
+                }
+                    // Send to all users the user is online
                 server.Broadcast(message, this.Id);                
 
                 while (true)
@@ -45,7 +66,13 @@ namespace Server
                         message = GetMessage();                        
                         message = string.Format($"{username}: {message}");
                         Console.WriteLine(message);
-                        storeMessages.Add(message);
+
+                        // Write message to /file.txt/
+                        using (StreamWriter sw = new StreamWriter(filePath, true, Encoding.Default))
+                        {
+                            sw.WriteLine($"Last message: {message}");
+                        }
+
                         server.Broadcast(message, this.Id);    
                     }
                     catch
@@ -79,7 +106,7 @@ namespace Server
                 stringBuilder.Append(Encoding.Unicode.GetString(data, 0, bytes));
 
             }
-            while (Stream.DataAvailable);            
+            while (Stream.DataAvailable);
 
             return stringBuilder.ToString();
         }
