@@ -15,6 +15,7 @@ namespace Server
     {
         private static TcpListener tcpListener;
         private List<ClientView> clients = new List<ClientView>();
+        private string filePath = @"D:\epam-lab\workshopHM.Multithreading\WorkshopHM.Multithreading\Server\messages.txt";
 
         protected internal void AddConnection(ClientView clientView)
         {
@@ -86,12 +87,19 @@ namespace Server
 
         protected internal void Disconnect()
         {
+            FileInfo fileInf = new FileInfo(filePath);
+
+            if (fileInf.Exists)
+            {
+                fileInf.Delete();
+            }
+
             tcpListener.Stop(); 
 
             for (int i = 0; i < clients.Count; i++)
             {
                 clients[i].Close();
-            }            
+            }
 
             Environment.Exit(0);
         }

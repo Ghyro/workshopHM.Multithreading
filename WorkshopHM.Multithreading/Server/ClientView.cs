@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server
@@ -17,7 +18,7 @@ namespace Server
         private TcpClient client;
         private ServerView server;
         // File path (you can change it)
-        private string filePath = @"C:\Users\Kirill\Desktop\workshopHM.Multithreading-master\WorkshopHM.Multithreading\Server\messages.txt";
+        private string filePath = @"D:\epam-lab\workshopHM.Multithreading\WorkshopHM.Multithreading\Server\messages.txt";
 
         public ClientView(TcpClient tcpClient, ServerView serverView)
         {
@@ -39,6 +40,7 @@ namespace Server
 
 
                 // Broadcast all last messages for new User
+                Thread.Sleep(500);
                 try
                 {
                     using (StreamReader sr = new StreamReader(filePath, Encoding.Default))
@@ -112,7 +114,7 @@ namespace Server
         }
 
         protected internal void Close()
-        {
+        {          
             if (Stream != null)
             {
                 Stream.Close();

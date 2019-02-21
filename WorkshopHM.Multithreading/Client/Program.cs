@@ -16,11 +16,19 @@ namespace Client
         private static TcpClient client;
         private static NetworkStream stream;
         private static int count;
- 
+        private static List<string> botNames = new List<string>();        
+
         static void Main(string[] args)
         {
-            Console.Write("Please, enter your name: ");
-            username = Console.ReadLine();
+            username = GenerateBotName(5);
+
+            while (botNames.Contains(username))
+            {
+                username = GenerateBotName(5);
+            }
+
+            botNames.Add(username);
+
             client = new TcpClient();
             try
             {
@@ -111,6 +119,28 @@ namespace Client
                     Disconnect();
                 }
             }
+        }
+
+        public static string GenerateBotName(int len)
+        {
+            Random r = new Random();
+            string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "l", "n", "p", "q", "r", "s", "sh", "zh", "t", "v", "w", "x" };
+            string[] vowels = { "a", "e", "i", "o", "u", "ae", "y" };
+            string name = string.Empty;
+
+            name += consonants[r.Next(consonants.Length)].ToUpper();
+            name += vowels[r.Next(vowels.Length)];
+
+            int b = 2;
+            while (b < len)
+            {
+                name += consonants[r.Next(consonants.Length)];
+                b++;
+                name += vowels[r.Next(vowels.Length)];
+                b++;
+            }
+
+            return name;
         }
  
         static void Disconnect()
