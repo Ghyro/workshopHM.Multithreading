@@ -1,6 +1,4 @@
 # workshopHM.Multithreading
-Workshop.HM Debugging (Day 5)
-
 ## General
 ### Our task is to develop a client and server for a simple corporate chat. The main characteristics of our solution:
  - Server and client are implemented as usual console or GUI applications (of your choice)
@@ -22,5 +20,5 @@ Workshop.HM Debugging (Day 5)
 
    - Reading and writing can be done by synchronous operations.
 
-###Task 2
+### Task 2
    - Rewrite client and server using Task Parallel Library
