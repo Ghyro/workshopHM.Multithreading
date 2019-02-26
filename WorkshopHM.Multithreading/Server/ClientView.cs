@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// Containses impementation of server (client view), file path to write/read file, creates a new client.
+    /// </summary>
     class ClientView
     {
         // Unique (for each a new user)
@@ -28,6 +31,9 @@ namespace Server
             serverView.AddConnection(this);
         }
 
+        /// <summary>
+        /// Gets or send some messages from/to clients.
+        /// </summary>
         public void Process()
         {       
             try
@@ -97,6 +103,10 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Gets messages from clients.
+        /// </summary>
+        /// <returns>Message.</returns>
         private string GetMessage()
         {
             byte[] data = new byte[64];
@@ -113,6 +123,9 @@ namespace Server
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Closes stream and client connection.
+        /// </summary>
         protected internal void Close()
         {          
             if (Stream != null)

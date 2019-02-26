@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /// <summary>
+    /// Containses implementation of Client layer, stores list of botNames,
+    /// The simple Tcp-client
+    /// </summary>
     class Program
     {
         private static string username;
@@ -63,6 +67,10 @@ namespace Client
             }
         }
 
+        /// <summary>
+        /// Sends random messages to the server.
+        /// </summary>
+        /// <param name="count">Random amount of messages.</param>
         static void SendMessage(int count)
         {
             List<string> messages = new List<string>()
@@ -92,6 +100,9 @@ namespace Client
             }
         }
         
+        /// <summary>
+        /// Receives some messages
+        /// </summary>
         static void ReceiveMessage()
         {
             while (true)
@@ -121,6 +132,11 @@ namespace Client
             }
         }
 
+        /// <summary>
+        /// Generates random bot name for a new tcp-client.
+        /// </summary>
+        /// <param name="len">Length of name.</param>
+        /// <returns>Bot name.</returns>
         public static string GenerateBotName(int len)
         {
             Random r = new Random();
@@ -143,6 +159,9 @@ namespace Client
             return name;
         }
  
+        /// <summary>
+        /// Disconnect from the server.
+        /// </summary>
         static void Disconnect()
         {
             //client.Close();

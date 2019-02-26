@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// Creates a new thread (task) for server and starts it.
+    /// </summary>
     class Program
     {
         private static ServerView server;
