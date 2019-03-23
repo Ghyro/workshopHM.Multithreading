@@ -1,4 +1,4 @@
-# workshopHM.Multithreading
+# workshopHW.Multithreading
 ## General
 ### Our task is to develop a client and server for a simple corporate chat. The main characteristics of our solution:
  - Server and client are implemented as usual console or GUI applications (of your choice)
@@ -16,7 +16,7 @@
    - At the end of the application sends a notification to clients and correctly closes all connections.
 
 ### Task 1
-   - Implement the client and server using the ìFor each client - own processing flowî scheme for the server
+   - Implement the client and server using the ‚ÄúFor each client - own processing flow‚Äù scheme for the server
 
    - Reading and writing can be done by synchronous operations.
 
